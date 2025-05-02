@@ -5,6 +5,7 @@ import {Provider} from '@/components/ui/provider';
 
 import SearchPage from '@/pages/SearchPage';
 import ResultPage from '@/pages/ResultPage';
+import NotFoundPage from "@/pages/NotFoundPage";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,8 @@ createRoot(document.getElementById('root')!).render(
             <BrowserRouter>
                 <Routes>
                     <Route index element={<SearchPage/>}/>
-                    <Route path="result" element={<ResultPage/>}/>
+                    <Route path="/result/:username" element={<ResultPage/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Routes>
             </BrowserRouter>
         </QueryClientProvider>

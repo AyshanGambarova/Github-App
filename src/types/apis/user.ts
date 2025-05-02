@@ -18,7 +18,22 @@ export type TResUserProfile = {
     type: string;
     user_view_type?: string;
     site_admin: boolean;
+    name: string | null;
+    company: string | null;
+    blog: string | null;
+    location: string | null;
+    email: string | null;
+    hireable: boolean | null;
+    bio: string | null;
+    twitter_username: string | null;
+    public_repos: number;
+    public_gists: number;
+    followers: number;
+    following: number;
+    created_at: string;
+    updated_at: string;
 };
+
 
 export type TResRepos = {
     id: number;

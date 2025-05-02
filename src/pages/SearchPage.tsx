@@ -1,44 +1,53 @@
-import React, {useState} from "react";
-import {Button, Center, Flex, Input} from "@chakra-ui/react";
-import {useQuery} from "@tanstack/react-query";
-import {useApiUserProfile} from "@/apis/controllers/user";
-import {apiKeys} from "@/apis/apiKeys";
+import React from "react";
+import {
+    Button,
+    Center,
+    Flex,
+    Input,
+    InputGroup,
+    Icon,
+} from "@chakra-ui/react";
+import {useNavigate} from "react-router-dom";
+import {LuUser} from "react-icons/lu";
+import {AiOutlineSearch} from "react-icons/ai";
+import {IoLogoGithub} from "react-icons/io";
+import {useUsernameStore} from "@/stores/user"; // adjust path as needed
 
 const SearchPage: React.FC = () => {
-    const [username, setUsername] = useState("");
-    const [searchTerm, setSearchTerm] = useState("");
-
-    const {
-        data: dataUserProfile,
-        isFetching: isFetchingUserProfile,
-    } = useQuery({
-        queryFn: () => useApiUserProfile(searchTerm),
-        queryKey: [apiKeys.USER_PROFILE, searchTerm],
-        enabled: !!searchTerm,
-        retry: false
-    });
+    const username = useUsernameStore((state) => state.username);
+    const setUsername = useUsernameStore((state) => state.setUsername);
+    const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setSearchTerm(username.trim());
+        const trimmedUsername = username.trim();
+        if (!trimmedUsername) return;
+        navigate(`/result/${trimmedUsername}`);
     };
 
     return (
         <Center h="100vh">
-            <Flex as="form" gap={2} onSubmit={handleSubmit}>
-                <Input
-                    placeholder="Enter GitHub username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <Button colorScheme="teal" type="submit" isLoading={isFetchingUserProfile}>
-                    Search
-                </Button>
+            <Flex direction="column" align="center" gap={10}>
+                {/* GitHub Logo */}
+                <Icon as={IoLogoGithub} boxSize={20} color="gray.900"/>
+
+                {/* Form */}
+                <Flex as="form" gap={2} onSubmit={handleSubmit}>
+                    <InputGroup>
+                        <Input
+                            placeholder="Enter GitHub username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </InputGroup>
+
+                    <Button colorScheme="teal" type="submit" bgColor="gray.700">
+                        Search <AiOutlineSearch style={{marginLeft: 6}}/>
+                    </Button>
+                </Flex>
             </Flex>
         </Center>
     );
 };
 
 export default SearchPage;
-
-
