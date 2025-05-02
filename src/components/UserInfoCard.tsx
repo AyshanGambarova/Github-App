@@ -2,13 +2,14 @@ import React from "react";
 import {Avatar, Box, Flex, Link, List, Text} from "@chakra-ui/react";
 import {LuExternalLink} from "react-icons/lu";
 import {TResUserProfile} from "@/types/apis/user";
+import {useColorModeValue} from "@/components/ui/color-mode";
 
 interface UserInfoProps {
     data: TResUserProfile;
 }
 
 const UserInfoCard: React.FC<UserInfoProps> = ({data}) => {
-
+    const modeColor = useColorModeValue("gray.100", "gray.900");
 
     return (
         <Flex justify="center" py={10}>
@@ -19,6 +20,7 @@ const UserInfoCard: React.FC<UserInfoProps> = ({data}) => {
                 borderWidth="1px"
                 borderRadius="lg"
                 boxShadow="md"
+                bgColor={modeColor}
             >
                 <Flex alignItems="center" justifyContent="between" py={10}>
                     <Avatar.Root size="2xl" mr={8}>
@@ -26,57 +28,57 @@ const UserInfoCard: React.FC<UserInfoProps> = ({data}) => {
                         <Avatar.Image src={data?.avatar_url}/>
                     </Avatar.Root>
                     <Box ml={5} mt={4}>
-                        <List.Root spacing={2} styleType="none" stylePosition="outside">
-                            <List.Item mb={1.5}>
+                        <List.Root spacing={2}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Username:</Text> {data?.login ?? "Unknown"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item mb={1.5}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Full
                                         Name:</Text> {data?.name || "Not provided"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item mb={1.5}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Email:</Text> {data?.email || "Not public"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item mb={1.5}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Bio:</Text> {data?.bio || "Not provided"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item mb={1.5}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Location:</Text> {data?.location || "Not available"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item mb={1.5}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Repositories
                                         Count:</Text> {data?.public_repos ?? 0}
                                 </Text>
                             </List.Item>
 
-                            <List.Item mb={1.5}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Followers /
                                         Following:</Text> {data?.followers ?? 0} / {data?.following ?? 0}
                                 </Text>
                             </List.Item>
 
-                            <List.Item mb={1.5}>
+                            <List.Item mb={3}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Profile Link:</Text>{" "}
                                     {data?.html_url ? (

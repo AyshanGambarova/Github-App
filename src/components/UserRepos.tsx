@@ -10,6 +10,7 @@ import {
 import {TResRepos} from "@/types/apis/user";
 import {LuExternalLink} from "react-icons/lu";
 import {FaStar} from "react-icons/fa";
+import {useColorModeValue} from "@/components/ui/color-mode";
 
 interface UserReposProps {
     data?: TResRepos[];
@@ -19,6 +20,8 @@ const ITEMS_PER_PAGE = 6;
 
 const UserRepos: React.FC<UserReposProps> = ({data = []}) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const modeColor = useColorModeValue("gray.100", "gray.900");
+    const modeColorForPaginationButtons = useColorModeValue("gray.900", "gray.200");
 
     const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -41,6 +44,7 @@ const UserRepos: React.FC<UserReposProps> = ({data = []}) => {
             <SimpleGrid columns={{base: 1, sm: 2, md: 2, lg: 3, xl: 3}} spacing={4}>
                 {paginatedData.map((repo) => (
                     <Box
+                        bgColor={modeColor}
                         key={repo.id}
                         p={3}
                         m={2}
@@ -95,8 +99,7 @@ const UserRepos: React.FC<UserReposProps> = ({data = []}) => {
                 <Button
                     onClick={handlePrevPage}
                     disabled={currentPage === 1}
-                    colorScheme="teal"
-                    variant="outline"
+                    bgColor={modeColorForPaginationButtons}
                 >
                     Previous
                 </Button>
@@ -106,8 +109,7 @@ const UserRepos: React.FC<UserReposProps> = ({data = []}) => {
                 <Button
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages || totalPages === 0}
-                    colorScheme="teal"
-                    variant="outline"
+                    bgColor={modeColorForPaginationButtons}
                 >
                     Next
                 </Button>

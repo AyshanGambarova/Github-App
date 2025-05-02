@@ -1,10 +1,11 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {useApiUserProfile, useApiUserRepositories} from "@/apis/controllers/user";
-import {Box, Center, Spinner, Text} from "@chakra-ui/react";
+import {Box, Center, Flex, Spinner, Text} from "@chakra-ui/react";
 import UserInfoCard from "@/components/UserInfoCard";
 import GoToBackButton from "@/components/GoToBackButton";
 import UserRepos from "@/components/UserRepos";
+import ColorModeButton from "@/pages/ColorModeButton";
 
 
 const ResultPage: React.FC = () => {
@@ -36,9 +37,10 @@ const ResultPage: React.FC = () => {
 
     return (
         <>
-            <Box p={5}>
+            <Flex justifyContent="space-between" p={5}>
                 <GoToBackButton/>
-            </Box>
+                <ColorModeButton/>
+            </Flex>
             <UserInfoCard data={dataUserProfile}/>
             <UserRepos data={dataUserRepositories}/>
         </>
