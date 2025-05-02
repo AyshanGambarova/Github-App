@@ -1,9 +1,10 @@
 import React from "react";
 import {useParams} from "react-router-dom";
-import {useApiUserProfile} from "@/apis/controllers/user";
+import {useApiUserProfile, useApiUserRepositories} from "@/apis/controllers/user";
 import {Box, Center, Spinner, Text} from "@chakra-ui/react";
 import UserInfoCard from "@/components/UserInfoCard";
 import GoToBackButton from "@/components/GoToBackButton";
+import UserRepos from "@/components/UserRepos";
 
 
 const ResultPage: React.FC = () => {
@@ -15,6 +16,13 @@ const ResultPage: React.FC = () => {
         isFetching: isFetchingUserProfile,
         isError: isErrorUserProfile,
     } = useApiUserProfile(username!)
+
+
+    const {
+        data: dataUserRepositories,
+        isFetching: isFetchingUserRepositories,
+        isError: isErrorUserRepositories,
+    } = useApiUserRepositories(username!)
 
     if (isFetchingUserProfile) return (<Center h="100vh"><Spinner/></Center>);
     if (isErrorUserProfile || !dataUserProfile) return (
@@ -32,6 +40,7 @@ const ResultPage: React.FC = () => {
                 <GoToBackButton/>
             </Box>
             <UserInfoCard data={dataUserProfile}/>
+            <UserRepos data={dataUserRepositories}/>
         </>
     );
 };

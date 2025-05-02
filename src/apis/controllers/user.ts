@@ -13,7 +13,12 @@ export const useApiUserProfile = (username: string) =>
         retry: false,
     })
 
-export const useApiUserRepositories = (username: string): Promise<TResRepos[]> =>
-    methodGet({
-        url: `/users/${username}/repos`,
-    });
+export const useApiUserRepositories = (username: string) =>
+    useQuery<TResRepos[]>({
+        queryFn: () => methodGet({
+            url: `/users/${username}/repos`,
+        }),
+        queryKey: [apiKeys.USER_REPOS, username],
+        enabled: !!username,
+        retry: false,
+    })

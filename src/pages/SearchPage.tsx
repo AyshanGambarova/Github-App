@@ -33,7 +33,7 @@ const SearchPage: React.FC = () => {
 
                 {/* Form */}
                 <Flex as="form" gap={2} onSubmit={handleSubmit}>
-                    <InputGroup>
+                    <InputGroup startElement={<LuUser/>}>
                         <Input
                             placeholder="Enter GitHub username"
                             value={username}

@@ -21,66 +21,66 @@ const UserInfoCard: React.FC<UserInfoProps> = ({data}) => {
                 boxShadow="md"
             >
                 <Flex alignItems="center" justifyContent="between" py={10}>
-                    <Avatar.Root size="2xl" mr={5}>
+                    <Avatar.Root size="2xl" mr={8}>
                         <Avatar.Fallback name={data?.login}/>
                         <Avatar.Image src={data?.avatar_url}/>
                     </Avatar.Root>
                     <Box ml={5} mt={4}>
                         <List.Root spacing={2} styleType="none" stylePosition="outside">
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Username:</Text> {data?.login ?? "Unknown"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Full
                                         Name:</Text> {data?.name || "Not provided"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Email:</Text> {data?.email || "Not public"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Bio:</Text> {data?.bio || "Not provided"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span"
                                           fontWeight="bold">Location:</Text> {data?.location || "Not available"}
                                 </Text>
                             </List.Item>
 
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Repositories
                                         Count:</Text> {data?.public_repos ?? 0}
                                 </Text>
                             </List.Item>
 
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Followers /
                                         Following:</Text> {data?.followers ?? 0} / {data?.following ?? 0}
                                 </Text>
                             </List.Item>
 
-                            <List.Item>
+                            <List.Item mb={1.5}>
                                 <Text>
                                     <Text as="span" fontWeight="bold">Profile Link:</Text>{" "}
                                     {data?.html_url ? (
-                                        <Link href={data.html_url} target="_blank"
+                                        <Link href={data.html_url} target="_blank" color="teal.500"
                                               rel="noopener noreferrer">
                                             Visit Github profile <LuExternalLink/>
                                         </Link>
