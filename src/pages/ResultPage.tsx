@@ -1,48 +1,57 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {useApiUserProfile, useApiUserRepositories} from "@/apis/controllers/user";
-import {Box, Center, Flex, Spinner, Text} from "@chakra-ui/react";
-import UserInfoCard from "@/components/UserInfoCard";
-import GoToBackButton from "@/components/GoToBackButton";
+import {Box, Grid, Spinner, Text} from "@chakra-ui/react";
+import UserInfoCards from "@/components/UserInfoCards";
 import UserRepos from "@/components/UserRepos";
-import ColorModeButton from "@/pages/ColorModeButton";
-
 
 const ResultPage: React.FC = () => {
     const {username} = useParams<{ username: string }>();
 
-
     const {
         data: dataUserProfile,
+        isSuccess: isSuccessUserProfile,
         isFetching: isFetchingUserProfile,
         isError: isErrorUserProfile,
-    } = useApiUserProfile(username!)
-
+    } = useApiUserProfile(username!);
 
     const {
         data: dataUserRepositories,
-        isFetching: isFetchingUserRepositories,
-        isError: isErrorUserRepositories,
-    } = useApiUserRepositories(username!)
+    } = useApiUserRepositories(username!, isSuccessUserProfile);
 
-    if (isFetchingUserProfile) return (<Center h="100vh"><Spinner/></Center>);
-    if (isErrorUserProfile || !dataUserProfile) return (
-        <Center flexDirection="column" h='100vh'>
-            <Text fontSize="xl" fontWeight="bold" mb={3}>
-                User not found
-            </Text>
-            <GoToBackButton/>
-        </Center>
-    );
+    if (isFetchingUserProfile)
+        return (
+            <Grid h="100%" placeItems="center">
+                <Spinner/>
+            </Grid>
+        );
+
+    if (isErrorUserProfile || !dataUserProfile)
+        return (
+            <Grid h="100%" placeItems="center">
+                <Text fontSize="xl" fontWeight="bold">
+                    User not found
+                </Text>
+            </Grid>
+        );
 
     return (
         <>
-            <Flex justifyContent="space-between" p={5}>
-                <GoToBackButton/>
-                <ColorModeButton/>
-            </Flex>
-            <UserInfoCard data={dataUserProfile}/>
-            <UserRepos data={dataUserRepositories}/>
+            <Grid
+                templateColumns={{base: "1fr", md: "1fr 2.5fr"}}
+                gap={6}
+                p={5}
+                mt={10}
+            >
+                <Box>
+                    <UserInfoCards data={dataUserProfile}/>
+                </Box>
+                <Box>
+                    <UserRepos data={dataUserRepositories}/>
+                </Box>
+            </Grid>
+
+
         </>
     );
 };

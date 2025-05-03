@@ -1,8 +1,7 @@
 import React from "react";
-import {Flex, IconButton} from "@chakra-ui/react";
+import {IconButton} from "@chakra-ui/react";
 import {LuMoon, LuSun} from "react-icons/lu";
 import {useColorMode} from "@/components/ui/color-mode";
-
 
 const ColorModeButton: React.FC = () => {
     const {toggleColorMode, colorMode} = useColorMode()

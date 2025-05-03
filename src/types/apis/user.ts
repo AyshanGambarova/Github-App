@@ -34,7 +34,7 @@ export type TResUserProfile = {
     updated_at: string;
 };
 
-export interface GitHubRepoOwner {
+export type GitHubRepoOwner = {
     login: string;
     id: number;
     node_id: string;
@@ -56,7 +56,7 @@ export interface GitHubRepoOwner {
     user_view_type?: string;
 }
 
-export interface TResRepos {
+export type TResRepos = {
     id: number;
     node_id: string;
     name: string;

@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type {AxiosRequestConfig, AxiosResponse} from 'axios';
 import axiosInstance from '@/apis/axios.config';
 
 type TApiRequest = {
@@ -10,48 +10,20 @@ type TApiRequest = {
     headers?: any;
 };
 
-export const methodGet = async ({ url, ...config }: TApiRequest): Promise<any> => {
+const handleError = (error: any): never => {
+    throw new Error(`Network error :${error.message}`);
+}
+
+const request = async (
+    method: 'get' | 'post' | 'put' | 'patch' | 'delete',
+    {url, data, ...config}: TApiRequest
+): Promise<any> => {
     try {
-        const response: AxiosResponse = await axiosInstance.get(url, config);
+        const response: AxiosResponse = await axiosInstance[method](url, data ?? undefined, config);
         return config.responseType ? response : response.data;
-    } catch (err: any) {
-        throw new Error(`Network error: ${err.message}`);
+    } catch (error: any) {
+        handleError(error);
     }
-};
+}
 
-export const methodPost = async ({ url, data, ...config }: TApiRequest): Promise<any> => {
-    try {
-        const body = data && typeof data === 'object' && Object.keys(data).length > 0 ? data : undefined;
-        const response: AxiosResponse = await axiosInstance.post(url, body, config);
-        return response.data;
-    } catch (err: any) {
-        throw new Error(`Network error: ${err.message}`);
-    }
-};
-
-export const methodPut = async ({ url, data, ...config }: TApiRequest): Promise<any> => {
-    try {
-        const response: AxiosResponse = await axiosInstance.put(url, data, config);
-        return response.data;
-    } catch (err: any) {
-        throw new Error(`Network error: ${err.message}`);
-    }
-};
-
-export const methodPatch = async ({ url, data, ...config }: TApiRequest): Promise<any> => {
-    try {
-        const response: AxiosResponse = await axiosInstance.patch(url, data, config);
-        return response.data;
-    } catch (err: any) {
-        throw new Error(`Network error: ${err.message}`);
-    }
-};
-
-export const methodDelete = async ({ url, ...config }: TApiRequest): Promise<any> => {
-    try {
-        const response: AxiosResponse = await axiosInstance.delete(url, config);
-        return response.data;
-    } catch (err: any) {
-        throw new Error(`Network error: ${err.message}`);
-    }
-};
+export const get = (payload: TApiRequest): Promise<any> => request('get', payload);
