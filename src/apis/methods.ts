@@ -10,20 +10,11 @@ type TApiRequest = {
     headers?: any;
 };
 
-const handleError = (error: any): never => {
-    throw new Error(`Network error :${error.message}`);
-}
-
-const request = async (
-    method: 'get' | 'post' | 'put' | 'patch' | 'delete',
-    {url, data, ...config}: TApiRequest
-): Promise<any> => {
+export const get = async ({url, ...config}: TApiRequest): Promise<any> => {
     try {
-        const response: AxiosResponse = await axiosInstance[method](url, data ?? undefined, config);
+        const response: AxiosResponse = await axiosInstance.get(url, config);
         return config.responseType ? response : response.data;
-    } catch (error: any) {
-        handleError(error);
+    } catch (err: any) {
+        throw new Error(`Network error: ${err.message}`);
     }
-}
-
-export const get = (payload: TApiRequest): Promise<any> => request('get', payload);
+};

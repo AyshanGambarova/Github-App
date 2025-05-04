@@ -1,3 +1,8 @@
+export type TReqUserProfile = {
+    username: string;
+    page: number;
+    per_page: number;
+}
 export type TResUserProfile = {
     login: string;
     id: number;

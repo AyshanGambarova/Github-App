@@ -1,40 +1,52 @@
 import React, {useState} from "react";
+import {useParams} from "react-router-dom";
 import {
     Box,
     SimpleGrid,
     Flex,
     Text,
 } from "@chakra-ui/react";
-import {TResRepos} from "@/types/apis/user";
+import {useApiUserRepositories} from "@/apis/controllers/user";
 import Pagination from "@/components/Pagination";
 import UserRepoItem from "@/components/UserRepoItem";
 import {RiGitRepositoryLine} from "react-icons/ri";
+import {TReqUserProfile, TResRepos} from "@/types/apis/user";
 
 interface UserReposProps {
-    data?: TResRepos[];
-    totalRepoCount: number
+    totalRepoCount: number;
+    hasUserProfileData: boolean;
 }
 
-const ITEMS_PER_PAGE = 8;
+const UserRepos: React.FC<UserReposProps> = ({totalRepoCount, hasUserProfileData}) => {
+    const {username} = useParams<{ username: string }>();
+    const safeUsername = username || "";
 
-const UserRepos: React.FC<UserReposProps> = ({data = [], totalRepoCount}) => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [queryUser, setQueryUser] = useState<TReqUserProfile>({
+        username: safeUsername,
+        page: 1,
+        per_page: 8
+    });
 
-    const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const paginatedData = data.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const {data: dataUserRepositories} = useApiUserRepositories(queryUser, hasUserProfileData);
 
+    console.log(dataUserRepositories);
     const handlePrevPage = () => {
-        setCurrentPage((prev) => Math.max(prev - 1, 1));
+        setQueryUser((prev) => ({
+            ...prev,
+            page: Math.max(prev.page - 1),
+        }));
     };
 
     const handleNextPage = () => {
-        setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+        setQueryUser((prev) => ({
+            ...prev,
+            page: prev.page + 1,
+        }));
     };
 
     return (
         <Flex direction="column" justify="space-between" h="100%">
-            {data.length === 0 ? (
+            {dataUserRepositories?.length === 0 ? (
                 <Flex justify="center" align="center" h="150px">
                     <Text fontSize="md" color="gray.500" textAlign="center">
                         This user doesn't have any public repositories yet.
@@ -58,16 +70,16 @@ const UserRepos: React.FC<UserReposProps> = ({data = [], totalRepoCount}) => {
                             </Box>
                         </Flex>
                         <SimpleGrid columns={{base: 1, sm: 1, md: 2, lg: 3, xl: 4}}>
-                            {paginatedData.map((repo) => (
+                            {dataUserRepositories?.map((repo: TResRepos) => (
                                 <UserRepoItem key={repo.id} repo={repo}/>
                             ))}
                         </SimpleGrid>
                     </Box>
 
-                    <Flex justify="flex-end">
+                    <Flex justify="flex-end" mt={6}>
                         <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
+                            currentPage={queryUser.page}
+                            dataUserRepositories={dataUserRepositories}
                             onPrev={handlePrevPage}
                             onNext={handleNextPage}
                         />

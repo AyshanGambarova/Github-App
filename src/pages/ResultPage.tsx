@@ -15,9 +15,9 @@ const ResultPage: React.FC = () => {
         isError: isErrorUserProfile,
     } = useApiUserProfile(username!);
 
-    const {
-        data: dataUserRepositories,
-    } = useApiUserRepositories(username!, isSuccessUserProfile);
+    // const {
+    //     data: dataUserRepositories,
+    // } = useApiUserRepositories(username!, isSuccessUserProfile);
 
     if (isFetchingUserProfile)
         return (
@@ -42,11 +42,11 @@ const ResultPage: React.FC = () => {
             py={5}
             px={10}
         >
-            <Box>
+            <Box minH="300px">
                 <UserInfoCard data={dataUserProfile}/>
             </Box>
             <Box>
-                <UserRepos totalRepoCount={dataUserProfile.public_repos} data={dataUserRepositories}/>
+                <UserRepos totalRepoCount={dataUserProfile.public_repos} hasUserProfileData={isSuccessUserProfile}/>
             </Box>
         </Grid>
     );

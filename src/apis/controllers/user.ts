@@ -1,4 +1,4 @@
-import {TResUserProfile, TResRepos} from '@/types/apis/user';
+import {TResUserProfile, TResRepos, TReqUserProfile} from '@/types/apis/user';
 import {get} from '@/apis/methods';
 import {useQuery} from "@tanstack/react-query";
 import {apiKeys} from "@/apis/apiKeys";
@@ -12,11 +12,17 @@ export const useApiUserProfile = (username: string) =>
         enabled: !!username,
     })
 
-export const useApiUserRepositories = (username: string, hasUserProfileData: boolean) =>
-    useQuery<TResRepos[]>({
-        queryFn: () => get({
-            url: `/users/${username}/repos`,
-        }),
-        queryKey: [apiKeys.USER_REPOS, username],
+export const useApiUserRepositories = (
+    {username, page = 1, per_page = 8}: TReqUserProfile,
+    hasUserProfileData: boolean
+) => {
+    return useQuery<TResRepos[]>({
+        queryFn: () =>
+            get({
+                url: `/users/${username}/repos`,
+                params: {page, per_page},
+            }),
+        queryKey: [apiKeys.USER_REPOS, username, page, per_page],
         enabled: !!username && hasUserProfileData,
     })
+};
