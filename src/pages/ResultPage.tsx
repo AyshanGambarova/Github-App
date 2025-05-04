@@ -2,7 +2,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useApiUserProfile, useApiUserRepositories} from "@/apis/controllers/user";
 import {Box, Grid, Spinner, Text} from "@chakra-ui/react";
-import UserInfoCards from "@/components/UserInfoCards";
+import UserInfoCard from "@/components/UserInfoCard";
 import UserRepos from "@/components/UserRepos";
 
 const ResultPage: React.FC = () => {
@@ -36,23 +36,20 @@ const ResultPage: React.FC = () => {
         );
 
     return (
-        <>
-            <Grid
-                templateColumns={{base: "1fr", md: "1fr 2.5fr"}}
-                gap={6}
-                p={5}
-                mt={10}
-            >
-                <Box>
-                    <UserInfoCards data={dataUserProfile}/>
-                </Box>
-                <Box>
-                    <UserRepos data={dataUserRepositories}/>
-                </Box>
-            </Grid>
-
-
-        </>
+        <Grid
+            templateColumns={{base: "1fr", md: "1fr 2.5fr"}}
+            gap={6}
+            py={5}
+            px={10}
+            mt={{base: 0, md: 10}}
+        >
+            <Box>
+                <UserInfoCard data={dataUserProfile}/>
+            </Box>
+            <Box>
+                <UserRepos data={dataUserRepositories}/>
+            </Box>
+        </Grid>
     );
 };
 

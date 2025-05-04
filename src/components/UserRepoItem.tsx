@@ -21,14 +21,15 @@ const UserRepoItem: React.FC<UserRepoItemProps> = ({repo}) => {
     return (
         <Box
             bgColor={modeColor}
-            p={3}
-            mr={{base: 0, md: 3}}
+            py={3}
+            px={4}
+            mr={{base: 0, md: 4}}
             mb={5}
             borderWidth="1px"
             borderRadius="md"
-            boxShadow="sm"
+            boxShadow="md"
             position="relative"
-            h="120px"
+            h="160px"
             display="flex"
             flexDirection="column"
         >
@@ -37,7 +38,6 @@ const UserRepoItem: React.FC<UserRepoItemProps> = ({repo}) => {
                     Private
                 </Badge>
             )}
-
             <Box flex="1">
                 <Text fontWeight="bold" mb={1}>
                     {repo.name}
@@ -46,7 +46,6 @@ const UserRepoItem: React.FC<UserRepoItemProps> = ({repo}) => {
                     {repo.description || "No description provided."}
                 </Text>
             </Box>
-
             <Flex justify="space-between" align="center" mt="auto" pt={3}>
                 <Flex align="center" gap={1} fontSize="sm">
                     <Box color="yellow.400">
@@ -62,7 +61,7 @@ const UserRepoItem: React.FC<UserRepoItemProps> = ({repo}) => {
                     display="flex"
                     alignItems="center"
                     gap={1}
-                    color="teal.500"
+                    color="teal.600"
                 >
                     Repo link <LuExternalLink/>
                 </Link>

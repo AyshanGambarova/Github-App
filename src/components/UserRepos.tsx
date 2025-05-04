@@ -8,6 +8,7 @@ import {
 import {TResRepos} from "@/types/apis/user";
 import Pagination from "@/components/Pagination";
 import UserRepoItem from "@/components/UserRepoItem";
+import {RiGitRepositoryLine} from "react-icons/ri";
 
 interface UserReposProps {
     data?: TResRepos[];
@@ -41,6 +42,20 @@ const UserRepos: React.FC<UserReposProps> = ({data = []}) => {
             ) : (
                 <>
                     <Box flex="1">
+                        <Flex align="center" textStyle="xl" fontWeight="semibold" mb={5}>
+                            <Box mr={2}><RiGitRepositoryLine/></Box>
+                            <Text>Repositories</Text>
+                            <Box
+                                borderRadius="full"
+                                bg="gray.100"
+                                color="blackAlpha.800"
+                                px={4}
+                                ml={3}
+                                fontSize="md"
+                            >
+                                {totalPages}
+                            </Box>
+                        </Flex>
                         <SimpleGrid columns={{base: 1, sm: 1, md: 2, lg: 3, xl: 4}}>
                             {paginatedData.map((repo) => (
                                 <UserRepoItem key={repo.id} repo={repo}/>
