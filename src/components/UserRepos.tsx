@@ -12,11 +12,12 @@ import {RiGitRepositoryLine} from "react-icons/ri";
 
 interface UserReposProps {
     data?: TResRepos[];
+    totalRepoCount: number
 }
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 
-const UserRepos: React.FC<UserReposProps> = ({data = []}) => {
+const UserRepos: React.FC<UserReposProps> = ({data = [], totalRepoCount}) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
@@ -53,7 +54,7 @@ const UserRepos: React.FC<UserReposProps> = ({data = []}) => {
                                 ml={3}
                                 fontSize="md"
                             >
-                                {totalPages}
+                                {totalRepoCount}
                             </Box>
                         </Flex>
                         <SimpleGrid columns={{base: 1, sm: 1, md: 2, lg: 3, xl: 4}}>

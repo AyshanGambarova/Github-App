@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import {TResUserProfile} from "@/types/apis/user";
 import {useColorModeValue} from "@/components/ui/color-mode";
-import UserInfoSection from "./UserInfoSection"; // adjust the path as needed
+import UserInfoSection from "./UserInfoSection";
 
 interface UserInfoProps {
     data: TResUserProfile;
@@ -26,14 +26,13 @@ const UserInfoCard: React.FC<UserInfoProps> = ({data}) => {
             h="100%"
         >
             <Flex
-                direction={{base: "column", md: "column", lg: "row"}}
+                direction={{base: "column"}}
                 align={{base: "center"}}
-                textAlign={{base: "center", lg: "left"}}
                 gap={4}
             >
                 <Image
                     src={data?.avatar_url}
-                    boxSize={{base: "120px", md: "140px", lg: "100px", xl: "180px"}}
+                    boxSize={{base: "100px"}}
                     borderRadius="full"
                     alt={data?.login}
                 />

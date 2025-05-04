@@ -14,7 +14,7 @@ const Layout: React.FC = () => {
                 {isNotIndex ? <GoToBackButton/> : <Box w="40px"/>}
                 <ColorModeButton/>
             </Flex>
-            <Box overflow="auto">
+            <Box>
                 <Outlet/>
             </Box>
         </Grid>

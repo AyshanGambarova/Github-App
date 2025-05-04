@@ -41,13 +41,12 @@ const ResultPage: React.FC = () => {
             gap={6}
             py={5}
             px={10}
-            mt={{base: 0, md: 10}}
         >
             <Box>
                 <UserInfoCard data={dataUserProfile}/>
             </Box>
             <Box>
-                <UserRepos data={dataUserRepositories}/>
+                <UserRepos totalRepoCount={dataUserProfile.public_repos} data={dataUserRepositories}/>
             </Box>
         </Grid>
     );
