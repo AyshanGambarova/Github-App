@@ -12,7 +12,7 @@ const GoToBackButton: React.FC = () => {
         navigate(-1);
     };
     return (
-        <Button onClick={handleGoBack} colorScheme="teal" bgColor={modeColor}>
+        <Button onClick={handleGoBack} colorScheme="teal" bgColor={modeColor} size="sm">
             <IoArrowBackCircleOutline/> Go Back
         </Button>
     );

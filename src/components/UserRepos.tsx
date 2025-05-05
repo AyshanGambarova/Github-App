@@ -1,11 +1,6 @@
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
-import {
-    Box,
-    SimpleGrid,
-    Flex,
-    Text,
-} from "@chakra-ui/react";
+import {Box, Flex, SimpleGrid, Text,} from "@chakra-ui/react";
 import {useApiUserRepositories} from "@/apis/controllers/user";
 import Pagination from "@/components/Pagination";
 import UserRepoItem from "@/components/UserRepoItem";
@@ -28,8 +23,9 @@ const UserRepos: React.FC<UserReposProps> = ({totalRepoCount, hasUserProfileData
     });
 
     const {data: dataUserRepositories} = useApiUserRepositories(queryUser, hasUserProfileData);
+    const isLastPage = queryUser.page * queryUser.per_page >= totalRepoCount;
 
-    console.log(dataUserRepositories);
+
     const handlePrevPage = () => {
         setQueryUser((prev) => ({
             ...prev,
@@ -79,7 +75,7 @@ const UserRepos: React.FC<UserReposProps> = ({totalRepoCount, hasUserProfileData
                     <Flex justify="flex-end" mt={6}>
                         <Pagination
                             currentPage={queryUser.page}
-                            dataUserRepositories={dataUserRepositories}
+                            isLastPage={isLastPage}
                             onPrev={handlePrevPage}
                             onNext={handleNextPage}
                         />

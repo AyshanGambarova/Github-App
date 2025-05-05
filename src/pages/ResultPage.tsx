@@ -1,6 +1,6 @@
 import React from "react";
 import {useParams} from "react-router-dom";
-import {useApiUserProfile, useApiUserRepositories} from "@/apis/controllers/user";
+import {useApiUserProfile} from "@/apis/controllers/user";
 import {Box, Grid, Spinner, Text} from "@chakra-ui/react";
 import UserInfoCard from "@/components/UserInfoCard";
 import UserRepos from "@/components/UserRepos";
@@ -14,10 +14,6 @@ const ResultPage: React.FC = () => {
         isFetching: isFetchingUserProfile,
         isError: isErrorUserProfile,
     } = useApiUserProfile(username!);
-
-    // const {
-    //     data: dataUserRepositories,
-    // } = useApiUserRepositories(username!, isSuccessUserProfile);
 
     if (isFetchingUserProfile)
         return (
@@ -40,9 +36,11 @@ const ResultPage: React.FC = () => {
             templateColumns={{base: "1fr", md: "1fr 2.5fr"}}
             gap={6}
             py={5}
-            px={10}
+            px={5}
+            pl={9}
+            alignItems="start"
         >
-            <Box minH="300px">
+            <Box alignSelf="start" minH='502px' height="100%">
                 <UserInfoCard data={dataUserProfile}/>
             </Box>
             <Box>

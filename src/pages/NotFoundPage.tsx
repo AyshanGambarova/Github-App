@@ -1,16 +1,11 @@
 import React from "react";
-import {
-    Grid,
-    Flex,
-    Icon,
-    Text,
-} from "@chakra-ui/react";
+import {Flex, Grid, Icon, Text,} from "@chakra-ui/react";
 import {MdErrorOutline} from "react-icons/md";
 
 const NotFoundPage: React.FC = () => {
 
     return (
-        <Grid placeItems="center" h="100vh">
+        <Grid placeItems="center" h="100%">
             <Flex direction="column" align="center" gap={6}>
                 <Icon as={MdErrorOutline} boxSize={20} color="red.500"/>
                 <Text fontSize="3xl" fontWeight="bold">

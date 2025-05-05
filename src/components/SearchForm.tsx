@@ -2,13 +2,7 @@ import React from "react";
 import {Controller, FieldValues, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-    Button,
-    Flex,
-    Input,
-    InputGroup,
-    Field
-} from "@chakra-ui/react";
+import {Button, Field, Flex, Input, InputGroup} from "@chakra-ui/react";
 import {LuUser} from "react-icons/lu";
 import {AiOutlineSearch} from "react-icons/ai";
 import {useUsernameStore} from "@/stores/user";
@@ -54,7 +48,7 @@ const SearchForm: React.FC = () => {
     };
 
     return (
-        <Flex as="form" gap={2}>
+        <Flex as="form" gap={2} height="100px">
             <Field.Root mb={3} invalid={!!errors.username}>
                 <Controller
                     name="username"

@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
 
     return (
         <Grid h="100vh" templateRows="90px 1fr">
-            <Flex justifyContent="space-between" align="center" px={5} py={4}>
+            <Flex justifyContent="space-between" align="center" px={9} py={4}>
                 {isNotIndex ? <GoToBackButton/> : <Box w="40px"/>}
                 <ColorModeButton/>
             </Flex>
